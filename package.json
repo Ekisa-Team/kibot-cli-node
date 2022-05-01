@@ -26,7 +26,8 @@
   ],
   "scripts": {
     "dev": "tsup src/kibot.ts --watch",
-    "build": "tsup src/kibot.ts"
+    "build": "tsup src/kibot.ts",
+    "publish": "pnpm publish --access public"
   },
   "dependencies": {
     "chalk": "^5.0.1",
