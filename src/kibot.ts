@@ -3,7 +3,7 @@
 import { Command } from "commander";
 import * as cmd from "./cmd";
 
-// initialize program
+// initialize cli
 const program = new Command();
 
 // commands

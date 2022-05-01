@@ -1,16 +1,33 @@
 {
-  "name": "kibot-cli-node",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
-  "scripts": {
-    "start": "node dist/index.js --",
-    "dev": "tsup src/index.ts --watch",
-    "build": "tsup src/index.ts --minify"
-  },
-  "keywords": [],
-  "author": "",
+  "name": "@kibot/cli",
+  "version": "0.0.1",
+  "description": "🧙 Kibot's command line tool written in node",
+  "author": "https://github.com/Ekisa-Team",
   "license": "ISC",
+  "main": "src/kibot.ts",
+  "files": [
+    "dist/"
+  ],
+  "bin": {
+    "kibot": "./dist/kibot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juanmesa2097/kibot-cli-node"
+  },
+  "bugs": {
+    "url": "https://github.com/juanmesa2097/kibot-cli-node/issues"
+  },
+  "homepage": "https://github.com/juanmesa2097/kibot-cli-node",
+  "keywords": [
+    "Ekisa",
+    "Kibot",
+    "Kibot cli"
+  ],
+  "scripts": {
+    "dev": "tsup src/kibot.ts --watch",
+    "build": "tsup src/kibot.ts"
+  },
   "dependencies": {
     "commander": "^9.2.0",
     "cross-fetch": "^3.1.5",
