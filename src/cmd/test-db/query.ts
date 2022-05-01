@@ -1,16 +1,17 @@
 import { db } from "../../database/database";
+import { Logger } from "../../utils/logger";
 
 const NAMESPACE = "[Root]";
 
 const testDatabaseConnection = async () => {
-  console.log(`${NAMESPACE} :: (test-db) => Testing database connection`);
+  Logger.info(`${NAMESPACE} :: (test-db) => Testing database connection`);
 
   try {
     const conn = await db.connection.open();
-    console.log(`Status: ${conn.connected}`);
+    Logger.success(`Status: ${conn.connected}`);
     conn.close();
   } catch (err) {
-    console.log(err);
+    Logger.error(err);
   }
 };
 

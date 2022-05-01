@@ -4,6 +4,7 @@ import {
   checkHttpStatus,
   HTTPResponseError,
 } from "../../../utils/http-utilities";
+import { Logger } from "../../../utils/logger";
 
 const NAMESPACE = "[Quiron|appointments]";
 
@@ -12,7 +13,7 @@ const NAMESPACE = "[Quiron|appointments]";
  * @param opts command options
  */
 const listAppointments = async (opts: { format: "json" | "table" }) => {
-  console.log(`${NAMESPACE} :: (list) => Listing appointments`);
+  Logger.info(`${NAMESPACE} :: (list) => Listing appointments`);
 
   try {
     const conn = await db.connection.open();
@@ -20,34 +21,34 @@ const listAppointments = async (opts: { format: "json" | "table" }) => {
     const query = await conn.query(`SELECT * FROM ChatBotCitas`);
 
     if (opts.format === "table") {
-      console.table(query.recordset);
+      Logger.table(query.recordset);
     } else {
-      console.log(query.recordset);
+      Logger.log(query.recordset);
     }
 
     conn.close();
   } catch (err) {
-    console.log(err);
+    Logger.error(err);
   }
 };
 
 const prepareAppointments = async () => {
-  console.log(`${NAMESPACE} :: (prepare) => Preparing appointments`);
+  Logger.info(`${NAMESPACE} :: (prepare) => Preparing appointments`);
 
   try {
     const conn = await db.connection.open();
 
     const query = await conn.query(`exec SpGrabarCitasChatBot`);
-    console.log(`Rows affected: ${query.rowsAffected}`);
+    Logger.log(`Rows affected: ${query.rowsAffected}`);
 
     conn.close();
   } catch (err) {
-    console.log(err);
+    Logger.error(err);
   }
 };
 
 const uploadAppointments = async () => {
-  console.log(`${NAMESPACE} :: (upload) => Uploading appointments`);
+  Logger.info(`${NAMESPACE} :: (upload) => Uploading appointments`);
 
   try {
     const conn = await db.connection.open();
@@ -59,7 +60,7 @@ const uploadAppointments = async () => {
 
     // Validate if there are any appointments to upload
     if (appointments.length === 0) {
-      console.log("No appointments were found");
+      Logger.log("No appointments were found");
       return;
     }
 
@@ -78,12 +79,12 @@ const uploadAppointments = async () => {
 
     checkHttpStatus(response);
 
-    console.log(await response.json());
+    Logger.log(await response.json());
   } catch (err) {
     if (err instanceof HTTPResponseError) {
-      console.error(err.response.text());
+      Logger.error(err.response.text());
     } else {
-      console.error(err);
+      Logger.error(err);
     }
   }
 };
