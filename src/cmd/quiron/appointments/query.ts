@@ -1,4 +1,5 @@
 import { db } from "../../../database/database";
+import { readGlobalConfig } from "../../../utils/config";
 import { HttpService } from "../../../utils/http-service";
 import {
   checkHttpStatus,
@@ -19,7 +20,15 @@ const listAppointments = async (opts: { format: "json" | "table" }) => {
     const conn = await db.connection.open();
 
     const query = await conn.query(`SELECT * FROM ChatBotCitas`);
+    const appointments = query.recordset;
 
+    // Validate if there are any appointments to upload
+    if (appointments.length === 0) {
+      Logger.log("No appointments were found");
+      process.exit(0);
+    }
+
+    // Validate display format
     if (opts.format === "table") {
       Logger.table(query.recordset);
     } else {
@@ -48,6 +57,17 @@ const prepareAppointments = async () => {
 };
 
 const uploadAppointments = async () => {
+  const quironConfig = readGlobalConfig()?.apps?.quiron;
+  const { client, webhooks } = quironConfig || {};
+
+  if (!client) {
+    Logger.error("Client config was not found");
+  }
+
+  if (!webhooks) {
+    Logger.error("Webhook config was not found");
+  }
+
   Logger.info(`${NAMESPACE} :: (upload) => Uploading appointments`);
 
   try {
@@ -60,26 +80,28 @@ const uploadAppointments = async () => {
 
     // Validate if there are any appointments to upload
     if (appointments.length === 0) {
-      Logger.log("No appointments were found");
-      return;
+      Logger.warn(
+        "No appointments were found. Make sure to prepare them first."
+      );
+      process.exit(0);
     }
 
     // Generate appointment payload
     const payload = {
       Citas: appointments,
-      IdCliente: 32, // TODO: must read from config
+      IdCliente: client,
     };
 
     // Call HTTP service to upload appointments
-    // TODO: must read from config,
     const response = await HttpService.post(
-      "https://kibot-quiron-middleware.azurewebsites.net/api/chatbotcita/create",
+      webhooks!.uploadAppointments!,
       payload
     );
 
     checkHttpStatus(response);
 
-    Logger.log(await response.json());
+    const responseBody = JSON.stringify(await response.json(), null, 2);
+    Logger.log(responseBody);
   } catch (err) {
     if (err instanceof HTTPResponseError) {
       Logger.error(err.response.text());
