@@ -1,4 +1,4 @@
-import { db } from "../../../database/database";
+import { getConnection } from "../../../database/connection";
 import { readGlobalConfig } from "../../../utils/config";
 import { HttpService } from "../../../utils/http-service";
 import {
@@ -17,9 +17,8 @@ const listAppointments = async (opts: { format: "json" | "table" }) => {
   Logger.info(`${NAMESPACE} :: (list) => Listing appointments`);
 
   try {
-    const conn = await db.connection.open();
-
-    const query = await conn.query(`SELECT * FROM ChatBotCitas`);
+    const pool = await getConnection();
+    const query = await pool.request().query(`SELECT * FROM ChatBotCitas`);
     const appointments = query.recordset;
 
     // Validate if there are any appointments to upload
@@ -34,8 +33,6 @@ const listAppointments = async (opts: { format: "json" | "table" }) => {
     } else {
       Logger.log(query.recordset);
     }
-
-    conn.close();
   } catch (err) {
     Logger.error(err);
   }
@@ -45,12 +42,9 @@ const prepareAppointments = async () => {
   Logger.info(`${NAMESPACE} :: (prepare) => Preparing appointments`);
 
   try {
-    const conn = await db.connection.open();
-
-    const query = await conn.query(`exec SpGrabarCitasChatBot`);
+    const pool = await getConnection();
+    const query = await pool.request().query(`exec SpGrabarCitasChatBot`);
     Logger.log(`Rows affected: ${query.rowsAffected}`);
-
-    conn.close();
   } catch (err) {
     Logger.error(err);
   }
@@ -71,12 +65,11 @@ const uploadAppointments = async () => {
   Logger.info(`${NAMESPACE} :: (upload) => Uploading appointments`);
 
   try {
-    const conn = await db.connection.open();
+    const pool = await getConnection();
 
     // Fetch appointments
-    const query = await conn.query(`SELECT * FROM ChatBotCitas`);
+    const query = await pool.query(`SELECT * FROM ChatBotCitas`);
     const appointments = query.recordset;
-    conn.close();
 
     // Validate if there are any appointments to upload
     if (appointments.length === 0) {

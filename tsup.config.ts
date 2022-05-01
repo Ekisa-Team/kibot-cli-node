@@ -5,6 +5,6 @@ export default defineConfig((options) => {
     entry: ["src/kibot.ts"],
     format: ["esm"],
     clean: !options.watch,
-    minify: !options.watch,
+    minify: false,
   };
 });

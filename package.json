@@ -4,8 +4,8 @@
   "description": "🧙 Kibot's command line tool written in node",
   "author": "https://github.com/Ekisa-Team",
   "license": "ISC",
-  "type": "module",
   "main": "./dist/kibot.js",
+  "type": "module",
   "bin": {
     "kibot": "./dist/kibot.js"
   },
@@ -29,8 +29,8 @@
     "Kibot cli"
   ],
   "scripts": {
-    "dev": "tsup src/kibot.ts --watch",
-    "build": "tsc src/kibot.ts"
+    "dev": "tsup --watch",
+    "build": "tsup"
   },
   "dependencies": {
     "chalk": "^5.0.1",

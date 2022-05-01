@@ -1,6 +1,7 @@
 import chalk from "chalk";
+import mssql from "mssql";
 import { readGlobalConfig } from "../utils/config";
-const mssql = require("msnodesqlv8");
+import { Logger } from "../utils/logger";
 
 const dbConfig = readGlobalConfig()?.apps?.quiron?.database;
 
@@ -8,7 +9,7 @@ if (!dbConfig) {
   throw new Error(chalk.red.bold("Database config was not found"));
 }
 
-const mssqConnectionPool = new mssql.ConnectionPool({
+const mssqlConfig: mssql.config = {
   driver: "msnodesqlv8",
   database: dbConfig.database,
   server: dbConfig.server || "",
@@ -18,6 +19,15 @@ const mssqConnectionPool = new mssql.ConnectionPool({
     trustedConnection: dbConfig.options?.trustedConnection,
     trustServerCertificate: dbConfig.options?.trustServerCertificate,
   },
-});
+};
 
-export { mssqConnectionPool };
+export const getConnection = async (): Promise<mssql.ConnectionPool> => {
+  try {
+    const pool = mssql.connect(mssqlConfig);
+    return pool;
+  } catch (error) {
+    return Logger.error(error);
+  }
+};
+
+export { mssql };

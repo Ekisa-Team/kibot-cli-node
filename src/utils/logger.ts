@@ -23,7 +23,7 @@ const warn = (message?: any, ...optionalParams: any[]) => {
 const error = (message?: any, ...optionalParams: any[]) => {
   const msg = [message, ...optionalParams];
   console.error(chalk.red.bold(msg));
-  process.exit(1);
+  return process.exit(1);
 };
 
 const table = console.table;
