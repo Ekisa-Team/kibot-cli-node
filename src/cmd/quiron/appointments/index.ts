@@ -1,5 +1,9 @@
 import { Command } from "commander";
-import { listAppointments } from "./query";
+import {
+  listAppointments,
+  prepareAppointments,
+  uploadAppointments,
+} from "./query";
 
 export const appointments = (): Command => {
   const cmd = new Command("appointments");
@@ -9,13 +13,8 @@ export const appointments = (): Command => {
     .option("-f --format <format>", "display format in JSON or Table", "json")
     .action(listAppointments);
 
-  cmd.command("prepare").action(() => {
-    console.log("Preparing appointments");
-  });
-
-  cmd.command("upload").action(() => {
-    console.log("Uploading appointments");
-  });
+  cmd.command("prepare").action(prepareAppointments);
+  cmd.command("upload").action(uploadAppointments);
 
   return cmd;
 };
