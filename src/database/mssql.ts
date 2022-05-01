@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import mssql from "mssql/msnodesqlv8";
 import { readGlobalConfig } from "../utils/config";
+const mssql = require("msnodesqlv8");
 
 const dbConfig = readGlobalConfig()?.apps?.quiron?.database;
 

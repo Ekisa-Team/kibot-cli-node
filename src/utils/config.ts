@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { writeFile } from "fs/promises";
 import { homedir } from "os";
-import path from "path";
+import { join } from "path";
 import { Logger } from "./logger";
 
 export type CLIConfig = {
@@ -60,7 +60,7 @@ export function readGlobalConfig(): CLIConfig | undefined {
       throw new Error("No home directory found.");
     }
 
-    const configPath = path.join(home, configFilename);
+    const configPath = join(home, configFilename);
     return JSON.parse(readFileSync(configPath, "utf8"));
   } catch (err) {
     Logger.error(err);
@@ -78,7 +78,7 @@ export async function createGlobalConfig() {
       throw new Error("No home directory found.");
     }
 
-    const configPath = path.join(home, configFilename);
+    const configPath = join(home, configFilename);
     await writeFile(configPath, JSON.stringify(defaultConfig));
 
     return configPath;
