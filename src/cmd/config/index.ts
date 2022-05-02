@@ -24,7 +24,7 @@ export const config = (): Command => {
       .option("-usr --user <user>", "Username")
       .option("-pwd --password <password>", "Password")
       .option(
-        "-uw --uploadwebhook <upload-webhook>",
+        "-uw --uploadwebhook <uploadwebhook>",
         "Webhook to upload appointments"
       )
       .action(createConfigFile)
