@@ -37,6 +37,7 @@ npm un -g @kibot/cli
 - **db**: permite realizar operaciones de lectura en la base de datos
   - **test**: comprueba el estado de la conexión
 - **appointments**: permite gestionar las citas
+  - **list**: muestra las citas de la tabla ChatbotCitas en formato JSON o en una tabla
   - **prepare**: carga las citas en la tabla ChatbotCitas antes de ser subidas
   - **upload**: toma las citas de la tabla ChatbotCitas y las sube a la nube
 
