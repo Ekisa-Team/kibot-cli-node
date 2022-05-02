@@ -126,7 +126,7 @@ Commands:
   help [command]  display help for command
 ```
 
-### `test`
+#### `test`
 
 ```
 Usage: kibot db test [options]
