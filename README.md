@@ -28,17 +28,17 @@ npm un -g @kibot/cli
 
 ### `Comandos principales`
 
-- **help**: muestra ayudas sobre cualquier comando.
-- **config**: permite gestionar el archivo de configuración global.
+- **help**: muestra ayudas sobre cualquier comando
+- **config**: permite gestionar el archivo de configuración global
   - **reveal**: muestra la ruta del archivo de configuración
   - **preview**: muestra la configuración actual
   - **remove**: elimina el archivo de configuración del disco
   - **create**: crea un nuevo archivo de configuración
-- **db**: permite realizar operaciones de lectura en la base de datos.
-  - **test**: comprueba el estado de la conexión.
-- **appointments**: permite gestionar las citas.
-  - **prepare**: carga las citas en la tabla ChatbotCitas antes de ser subidas.
-  - **upload**: toma las citas de la tabla ChatbotCitas y las sube a la nube.
+- **db**: permite realizar operaciones de lectura en la base de datos
+  - **test**: comprueba el estado de la conexión
+- **appointments**: permite gestionar las citas
+  - **prepare**: carga las citas en la tabla ChatbotCitas antes de ser subidas
+  - **upload**: toma las citas de la tabla ChatbotCitas y las sube a la nube
 
 ## `help`
 
