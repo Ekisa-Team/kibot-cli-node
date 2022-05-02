@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import mssql from "mssql";
+import mssql from "mssql/msnodesqlv8";
 import { readGlobalConfig } from "../utils/config";
 import { Logger } from "../utils/logger";
 
