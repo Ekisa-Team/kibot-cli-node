@@ -8,7 +8,7 @@ Como requisito es necesario tener instalado el entorno de ejecución de JavaScri
 
 Instalar el CLI usando el gestor de paquetes `npm`
 
-```bash
+```console
 npm install --global @kibot/cli
 
 # o más corto
@@ -17,7 +17,7 @@ npm i -g @kibot/cli
 
 ## **Desinstalación**
 
-```bash
+```console
 npm uninstall --global @kibot/cli
 
 # o más corto
@@ -43,7 +43,7 @@ npm un -g @kibot/cli
 
 ## `help`
 
-```
+```console
 Usage: kibot [options] [command]
 
 Options:
@@ -57,7 +57,7 @@ Commands:
 
 ## `config`
 
-```
+```console
 Usage: kibot config [options] [command]
 
 Options:
@@ -73,7 +73,7 @@ Commands:
 
 #### `reveal`
 
-```
+```console
 Usage: kibot config reveal [options]
 
 Options:
@@ -82,7 +82,7 @@ Options:
 
 #### `preview`
 
-```
+```console
 Usage: kibot config preview [options]
 
 Options:
@@ -91,7 +91,7 @@ Options:
 
 #### `remove`
 
-```
+```console
 Usage: kibot config remove [options]
 
 Options:
@@ -100,7 +100,7 @@ Options:
 
 #### `create`
 
-```
+```console
 Usage: kibot config create [options] <app>
 
 Options:
@@ -115,7 +115,7 @@ Options:
 
 ## `db`
 
-```
+```console
 Usage: kibot db [options] [command]
 
 Options:
@@ -128,7 +128,7 @@ Commands:
 
 #### `test`
 
-```
+```console
 Usage: kibot db test [options]
 
 Options:
@@ -137,7 +137,7 @@ Options:
 
 ## `appointments`
 
-```
+```console
 Usage: kibot appointments [options] [command]
 
 Options:
@@ -152,7 +152,7 @@ Commands:
 
 #### `list`
 
-```
+```console
 Usage: kibot appointments list [options]
 
 Options:
@@ -162,7 +162,7 @@ Options:
 
 #### `prepare`
 
-```
+```console
 Usage: kibot appointments prepare [options]
 
 Options:
@@ -171,7 +171,7 @@ Options:
 
 #### `upload`
 
-```
+```console
 Usage: kibot appointments upload [options]
 
 Options:
@@ -209,7 +209,7 @@ Este es un ejemplo de su estructura.
 
 Este es un ejemplo del comando que se puede utilizar para crear el archivo.
 
-```
+```console
 kibot config create quiron --client 32 --database Quiron --server JUAN-WICK --uploadwebhook https://kibot-quiron-middleware.azurewebsites.net/api/chatbotcita/create
 
 # o más corto
