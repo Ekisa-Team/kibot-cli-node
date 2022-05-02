@@ -29,13 +29,15 @@ const listAppointments = async (opts: { format: "json" | "table" }) => {
 
     // Validate display format
     if (opts.format === "table") {
-      Logger.table(query.recordset);
+      console.table(appointments);
     } else {
-      Logger.log(query.recordset);
+      console.log(appointments);
     }
-  } catch (err) {
-    Logger.error(err);
+  } catch (error) {
+    Logger.error(error as string);
   }
+
+  process.exit(0);
 };
 
 const prepareAppointments = async () => {
@@ -45,8 +47,8 @@ const prepareAppointments = async () => {
     const pool = await getConnection();
     const query = await pool.request().query(`exec SpGrabarCitasChatBot`);
     Logger.log(`Rows affected: ${query.rowsAffected}`);
-  } catch (err) {
-    Logger.error(err);
+  } catch (error) {
+    Logger.error(error as string);
   }
 };
 
@@ -95,11 +97,11 @@ const uploadAppointments = async () => {
 
     const responseBody = JSON.stringify(await response.json(), null, 2);
     Logger.log(responseBody);
-  } catch (err) {
-    if (err instanceof HTTPResponseError) {
-      Logger.error(err.response.text());
+  } catch (error) {
+    if (error instanceof HTTPResponseError) {
+      Logger.error(await error.response.text());
     } else {
-      Logger.error(err);
+      Logger.error(error as string);
     }
   }
 };

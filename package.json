@@ -1,10 +1,10 @@
 {
   "name": "@kibot/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "🧙 Kibot's command line tool written in node",
   "author": "https://github.com/Ekisa-Team",
   "license": "ISC",
-  "main": "src/kibot.ts",
+  "main": "./dist/kibot.js",
   "files": [
     "dist/"
   ],

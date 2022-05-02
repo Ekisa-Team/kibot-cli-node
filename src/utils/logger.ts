@@ -1,33 +1,26 @@
 import chalk from "chalk";
 
-const log = (message?: any, ...optionalParams: any[]) => {
-  const msg = [message, ...optionalParams];
-  console.log(chalk(msg));
+const log = (message: string) => {
+  console.log(message);
 };
 
-const success = (message?: any, ...optionalParams: any[]) => {
-  const msg = [message, ...optionalParams];
-  console.log(chalk.green.bold(msg));
+const success = (message: string) => {
+  console.log(chalk.green.bold(message));
 };
 
-const info = (message?: any, ...optionalParams: any[]) => {
-  const msg = [message, ...optionalParams];
-  console.info(chalk.blue.bold(msg));
+const info = (message: string) => {
+  console.info(chalk.blue.bold(message));
 };
 
-const warn = (message?: any, ...optionalParams: any[]) => {
-  const msg = [message, ...optionalParams];
-  console.warn(chalk.yellow.bold(msg));
+const warn = (message: string) => {
+  console.warn(chalk.yellow.bold(message));
 };
 
-const error = (message?: any, ...optionalParams: any[]) => {
-  const msg = [message, ...optionalParams];
-  console.error(chalk.red.bold(msg));
+const error = (message: string) => {
+  console.error(chalk.red.bold(message));
   return process.exit(1);
 };
 
-const table = console.table;
-
-const Logger = { log, success, info, warn, error, table };
+const Logger = { log, success, info, warn, error };
 
 export { Logger };

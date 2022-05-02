@@ -62,8 +62,8 @@ export function readGlobalConfig(): CLIConfig | undefined {
 
     const configPath = join(home, configFilename);
     return JSON.parse(readFileSync(configPath, "utf8"));
-  } catch (err) {
-    Logger.error(err);
+  } catch (error) {
+    Logger.error(error as string);
   }
 }
 
@@ -82,7 +82,7 @@ export async function createGlobalConfig() {
     await writeFile(configPath, JSON.stringify(defaultConfig));
 
     return configPath;
-  } catch (err) {
-    Logger.error(err);
+  } catch (error) {
+    Logger.error(error as string);
   }
 }

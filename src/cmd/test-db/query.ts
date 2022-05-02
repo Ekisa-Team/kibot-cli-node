@@ -9,8 +9,8 @@ const testDatabaseConnection = async () => {
   try {
     const pool = await getConnection();
     Logger.success(`Status: ${pool.connected}`);
-  } catch (err) {
-    Logger.error(err);
+  } catch (error) {
+    Logger.error(error as string);
   }
 };
 
