@@ -4,14 +4,13 @@
   "description": "🧙 Kibot's command line tool written in node",
   "author": "https://github.com/Ekisa-Team",
   "license": "ISC",
-  "main": "./dist/kibot.js",
-  "type": "module",
-  "bin": {
-    "kibot": "./dist/kibot.js"
-  },
+  "main": "src/kibot.ts",
   "files": [
     "dist/"
   ],
+  "bin": {
+    "kibot": "./dist/kibot.js"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -36,10 +35,8 @@
     "chalk": "^5.0.1",
     "commander": "^9.2.0",
     "cross-fetch": "^3.1.5",
-    "esm": "^3.2.25",
     "msnodesqlv8": "^2.4.7",
-    "mssql": "^8.1.0",
-    "odbc": "^2.4.4"
+    "mssql": "^8.1.0"
   },
   "devDependencies": {
     "@types/mssql": "^7.1.5",

@@ -9,7 +9,6 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "outDir": "dist"
+    "skipDefaultLibCheck": true
   }
 }
