@@ -8,13 +8,19 @@ import {
 export const appointments = (): Command => {
   const cmd = new Command("appointments");
 
-  cmd
-    .command("list")
-    .option("-f --format <format>", "display format in JSON or Table", "json")
-    .action(listAppointments);
+  cmd.addCommand(
+    new Command("list")
+      .option(
+        "-f --format <format>",
+        "display data in JSON or Table format",
+        "json"
+      )
+      .action(listAppointments)
+  );
 
-  cmd.command("prepare").action(prepareAppointments);
-  cmd.command("upload").action(uploadAppointments);
+  cmd.addCommand(new Command("prepare").action(prepareAppointments));
+
+  cmd.addCommand(new Command("upload").action(uploadAppointments));
 
   return cmd;
 };

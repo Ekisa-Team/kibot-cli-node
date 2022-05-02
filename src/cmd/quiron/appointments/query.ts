@@ -7,18 +7,14 @@ import {
 } from "../../../utils/http-utilities";
 import { Logger } from "../../../utils/logger";
 
-const NAMESPACE = "[Quiron|appointments]";
-
 /**
  * List appointments from ChatbotCitas table
- * @param opts command options
+ * @param options command options
  */
-const listAppointments = async (opts: { format: "json" | "table" }) => {
-  Logger.info(`${NAMESPACE} :: (list) => Listing appointments`);
-
+const listAppointments = async (options: { format: "json" | "table" }) => {
   try {
     const pool = await getConnection();
-    const query = await pool.request().query(`SELECT * FROM ChatBotCitas`);
+    const query = await pool.request().query(`exec ObtenerChatBotCitas`);
     const appointments = query.recordset;
 
     // Validate if there are any appointments to upload
@@ -28,10 +24,10 @@ const listAppointments = async (opts: { format: "json" | "table" }) => {
     }
 
     // Validate display format
-    if (opts.format === "table") {
-      console.table(appointments);
+    if (options.format === "table") {
+      Logger.table(appointments);
     } else {
-      console.log(appointments);
+      Logger.json(appointments);
     }
   } catch (error) {
     Logger.error(error as string);
@@ -41,8 +37,6 @@ const listAppointments = async (opts: { format: "json" | "table" }) => {
 };
 
 const prepareAppointments = async () => {
-  Logger.info(`${NAMESPACE} :: (prepare) => Preparing appointments`);
-
   try {
     const pool = await getConnection();
     const query = await pool.request().query(`exec SpGrabarCitasChatBot`);
@@ -50,6 +44,8 @@ const prepareAppointments = async () => {
   } catch (error) {
     Logger.error(error as string);
   }
+
+  process.exit(0);
 };
 
 const uploadAppointments = async () => {
@@ -64,13 +60,11 @@ const uploadAppointments = async () => {
     Logger.error("Webhook config was not found");
   }
 
-  Logger.info(`${NAMESPACE} :: (upload) => Uploading appointments`);
-
   try {
     const pool = await getConnection();
 
     // Fetch appointments
-    const query = await pool.query(`SELECT * FROM ChatBotCitas`);
+    const query = await pool.query(`exec ObtenerChatBotCitas`);
     const appointments = query.recordset;
 
     // Validate if there are any appointments to upload
@@ -95,8 +89,7 @@ const uploadAppointments = async () => {
 
     checkHttpStatus(response);
 
-    const responseBody = JSON.stringify(await response.json(), null, 2);
-    Logger.log(responseBody);
+    Logger.json(await response.json());
   } catch (error) {
     if (error instanceof HTTPResponseError) {
       Logger.error(await error.response.text());
@@ -104,6 +97,8 @@ const uploadAppointments = async () => {
       Logger.error(error as string);
     }
   }
+
+  process.exit(0);
 };
 
 export { listAppointments, prepareAppointments, uploadAppointments };

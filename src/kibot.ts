@@ -7,7 +7,8 @@ import * as cmd from "./cmd";
 const program = new Command();
 
 // commands
-program.addCommand(cmd.testDB());
+program.addCommand(cmd.config());
+program.addCommand(cmd.db());
 program.addCommand(cmd.appointments());
 
 // parse arguments
