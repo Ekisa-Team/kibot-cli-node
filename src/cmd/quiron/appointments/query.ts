@@ -83,34 +83,32 @@ const uploadAppointments = async () => {
     checkHttpStatus(response);
 
     // Update appointments status
-    const {
-      isSuccess,
-      result: { responseSend },
-    } = await response.json();
-
+    const { isSuccess, result } = await response.json();
     if (isSuccess) {
-      for (const a of responseSend.result) {
-        var stmt = `
+      for (const appointment of result?.responseSend?.result) {
+        const stmt = `
           UPDATE ChatBotCitas
           SET Enviado = $1, FechaHoraEnvio = '$2'
           WHERE NumeroCita = $3 AND IdPaciente = $4`
-          .replace('$1', Boolean(a.enviado) ? '1' : '0')
-          .replace('$2', a.fechaHoraEnvio.slice(0, 19).replace('T', ' '))
-          .replace('$3', a.numeroCita)
-          .replace('$4', a.idPaciente);
+          .replace('$1', Boolean(appointment.enviado) ? '1' : '0')
+          .replace('$2', new Date(appointment.fechaHoraEnvio).toISOString())
+          .replace('$3', appointment.numeroCita)
+          .replace('$4', appointment.idPaciente);
 
-        const query = await pool.query(stmt);
+        const updateQuery = await pool.query(stmt);
 
         Logger.log(
           'Appointment:',
-          a.numeroCita,
+          appointment.numeroCita,
 
           'Pacient:',
-          `${a.nombresPaciente} (${a.celular})`,
+          `${appointment.nombresPaciente} (${appointment.celular})`,
 
           '->',
 
-          query.rowsAffected[0] > 0 ? chalk.green.bold('SUCCEEDED') : chalk.red.bold('FAILED'),
+          updateQuery.rowsAffected[0] > 0
+            ? chalk.green.bold('SUCCEEDED')
+            : chalk.red.bold('FAILED'),
         );
       }
     }
